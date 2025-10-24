@@ -29,7 +29,7 @@ export default async function Home() {
       </div>
     </section>
     <section> 
-      <Carousel/>
+      <Carousel/>   
        </section>
   </div>;
 }
