@@ -1,10 +1,11 @@
 'use client';
 
 import Image from "next/image";
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Stripe } from "stripe";
 import { useEffect } from "react";
 import { useState } from "react";
+import Link from "next/link";
 
 
 
@@ -26,42 +27,59 @@ export const Carousel = ({ products }: Props) => {
   const price = currentProduct.default_price as Stripe.Price;
   return (
     <div className="relative max-w-4xl mx-auto">
-      <div className="relative h-96 lg:h-[500px] overflow-hidden rounded-2xl shadow-2xl bg-white">
-        {/* Product Image */}
-        {currentProduct.images && currentProduct.images[0] && (
-          <div className="relative w-full h-full">
-            <Image
-              alt={currentProduct.name || `Product ${current + 1}`}
-              src={currentProduct.images[0]}
-              fill
-              className="object-cover transition-opacity duration-500"
-              priority
-            />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          </div>
-        )}
-
-        {/* Product Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
-          <div className="space-y-2">
-            <h3 className="text-2xl lg:text-3xl font-bold">
-              {currentProduct.name || `Featured Product ${current + 1}`}
-            </h3>
-            <p className="text-lg lg:text-xl opacity-90">
-              {currentProduct.description || 'Premium quality product'}
-            </p>
-            <div className="flex items-center space-x-4">
-              <span className="text-3xl font-bold">
-                {price?.unit_amount ? `$${(price.unit_amount / 100).toFixed(2)}` : 'Price TBD'}
-              </span>
-              {price?.currency && (
-                <span className="text-lg opacity-75 uppercase">{price.currency}</span>
-              )}
+      <Link href={`/product/${currentProduct.id}`}>
+        <Card className="relative h-96 lg:h-[500px] overflow-hidden shadow-2xl bg-white hover:scale-[1.02] transition-transform duration-300">
+          {/* Product Image */}
+          {currentProduct.images && currentProduct.images[0] && (
+            <div className="relative w-full h-full">
+              <Image
+                alt={currentProduct.name || `Product ${current + 1}`}
+                src={currentProduct.images[0]}
+                fill
+                className="object-cover transition-opacity duration-500"
+                priority
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
             </div>
+          )}
+
+          {/* Product Info Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
+            <CardHeader className="p-0 text-white">
+              <CardTitle className="text-2xl lg:text-3xl font-bold text-white mb-2">
+                {currentProduct.name || `Featured Product ${current + 1}`}
+              </CardTitle>
+              {currentProduct.description && (
+                <CardDescription className="text-lg lg:text-xl opacity-90 text-white">
+                  {currentProduct.description}
+                </CardDescription>
+              )}
+            </CardHeader>
+            <CardContent className="p-0 mt-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <span className="text-3xl font-bold">
+                    {price?.unit_amount
+                      ? new Intl.NumberFormat('en-US', {
+                          style: 'currency',
+                          currency: price.currency || 'USD',
+                        }).format(price.unit_amount / 100)
+                      : 'Price TBD'
+                    }
+                  </span>
+                  {price?.currency && (
+                    <span className="text-lg opacity-75 uppercase">{price.currency}</span>
+                  )}
+                </div>
+                <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold">
+                  View Details
+                </button>
+              </div>
+            </CardContent>
           </div>
-        </div>
-      </div>
+        </Card>
+      </Link>
 
       {/* Carousel Indicators */}
       <div className="flex justify-center mt-6 space-x-2">
