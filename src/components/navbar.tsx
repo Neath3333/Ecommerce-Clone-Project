@@ -1,6 +1,16 @@
+'use client';
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
+    const pathname = usePathname();
+
+    const isActive = (path: string) => {
+        if (path === "/" && pathname === "/") return true;
+        if (path !== "/" && pathname.startsWith(path)) return true;
+        return false;
+    };
     return (
         <nav className="sticky top-0 z-50 bg-white shadow-md">
             <div className="container mx-auto px-4">
@@ -17,19 +27,31 @@ export const Navbar = () => {
                     <div className="hidden md:flex items-center space-x-8">
                         <Link
                             href="/"
-                            className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                            className={`${
+                                isActive("/")
+                                    ? "text-blue-600 font-bold"
+                                    : "text-gray-700 hover:text-blue-600 font-medium"
+                            } transition-colors duration-200`}
                         >
                             Home
                         </Link>
                         <Link
                             href="/products"
-                            className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
+                            className={`${
+                                isActive("/products")
+                                    ? "text-blue-600 font-bold"
+                                    : "text-gray-700 hover:text-blue-600 font-medium"
+                            } transition-colors duration-200`}
                         >
                             Products
                         </Link>
                         <Link
                             href="/checkout"
-                            className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 capitalize"
+                            className={`${
+                                isActive("/checkout")
+                                    ? "text-blue-600 font-bold"
+                                    : "text-gray-700 hover:text-blue-600 font-medium"
+                            } transition-colors duration-200 capitalize`}
                         >
                             Checkout
                         </Link>
