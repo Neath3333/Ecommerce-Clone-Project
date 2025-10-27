@@ -5,7 +5,6 @@ export default async function ProductsPage() {
   try {
     const products = await stripe.products.list({
       expand: ["data.default_price"],
-      limit: 20,
     });
 
     return (
@@ -40,7 +39,7 @@ export default async function ProductsPage() {
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+            className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors duration-200"
           >
             Try Again
           </button>
