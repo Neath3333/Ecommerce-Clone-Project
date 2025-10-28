@@ -13,7 +13,7 @@ export const ProductCard = ({ product }: Props) => {
     const price = product.default_price as Stripe.Price;
 
     return (
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/products/${product.id}`}>
             <Card className="group overflow-hidden border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 bg-white">
                 {/* Product Image Container */}
                 <div className="relative w-full h-64 overflow-hidden bg-gray-50">
