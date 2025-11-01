@@ -3,13 +3,17 @@
 import Image from "next/image";
 import Stripe from "stripe";
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "../../../store/cart-store";
 
 
 interface Props {
     product: any; // Plain object representation of Stripe Product
 }
 export const ProductDetail = ({ product }: Props) => {
+    const {items,addItem} = useCartStore()
     const price = product.default_price as Stripe.Price;
+    const cartItem = items.find((item) => item.id === product.id);
+    
     return (
         <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
             {product.images && product.images.length > 0 && (
