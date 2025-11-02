@@ -20,6 +20,7 @@ export default async function ProductPage({ params }:
         return <ProductDetail product={plainProduct} />
     } catch (error) {
         console.error('Error fetching product:', error);
+        
         return (
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-2xl font-bold text-red-600">Product Not Found</h1>
