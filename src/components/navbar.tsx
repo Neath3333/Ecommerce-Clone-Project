@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { ShoppingCartIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useCartStore } from "../../store/cart-store";
 import { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 export const Navbar = () => {
 
@@ -84,6 +85,12 @@ export const Navbar = () => {
                             )}
                         </Link>
                     </div>
+                    <Button variant="ghost" onClick={() => setMobileOpen(!mobileOpen)}>
+                        {mobileOpen ? (
+                            <XMarkIcon
+                                className="w-6 h-6 text-gray-700"/>) : (
+                            <Bars3Icon className="w-6 h-6 text-gray-700"/>)}
+                    </Button>
 
                     {/* Mobile menu button - placeholder for future implementation */}
                     {/* <div className="md:hidden">
