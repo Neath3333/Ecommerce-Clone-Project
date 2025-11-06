@@ -1,4 +1,4 @@
-# UniShop - E-Commerce Clone Platform
+# J Neath Store - E-Commerce Clone Platform
 
 A modern, responsive e-commerce platform built with Next.js 15, TypeScript, and Stripe integration. This project demonstrates a fully functional online shopping experience with product catalog, cart functionality, and secure payment processing.
 
