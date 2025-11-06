@@ -21,87 +21,88 @@ export const Navbar = () => {
     };
 
     useEffect(() => {
-       const handleResize = () => {
-        if (window.innerWidth >= 768) {
-            setMobileOpen(false);
-        }
-       };
-       window.addEventListener('resize', handleResize);
-       return () => window.removeEventListener('resize', handleResize);
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setMobileOpen(false);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
     return (
-        <nav className="sticky top-0 z-50 bg-white shadow-md">
-            <div className="container mx-auto px-4">
-                <div className="flex items-center justify-between py-4">
+        <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
+            <div className="container mx-auto px-6">
+                <div className="flex items-center justify-between py-6">
                     {/* Logo */}
                     <Link
                         href="/"
-                        className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors duration-200"
+                        className="text-2xl font-light text-gray-900 hover:text-gray-700 transition-colors duration-300 font-playfair"
                     >
-                        UniShop
+                        J Neath
                     </Link>
 
                     {/* Navigation Links */}
-                    <div className="hidden md:flex items-center space-x-8">
+                    <div className="hidden md:flex items-center space-x-12">
                         <Link
                             href="/"
-                            className={`${
-                                isActive("/")
-                                    ? "text-blue-600 font-bold"
-                                    : "text-gray-700 hover:text-blue-600 font-medium"
-                            } transition-colors duration-200`}
+                            className={`${isActive("/")
+                                    ? "text-gray-900 font-medium"
+                                    : "text-gray-600 hover:text-gray-900 font-light"
+                                } transition-colors duration-300 text-sm uppercase tracking-wide`}
                         >
                             Home
                         </Link>
                         <Link
                             href="/products"
-                            className={`${
-                                isActive("/products")
-                                    ? "text-blue-600 font-bold"
-                                    : "text-gray-700 hover:text-blue-600 font-medium"
-                            } transition-colors duration-200`}
+                            className={`${isActive("/products")
+                                    ? "text-gray-900 font-medium"
+                                    : "text-gray-600 hover:text-gray-900 font-light"
+                                } transition-colors duration-300 text-sm uppercase tracking-wide`}
                         >
                             Products
                         </Link>
-                        <Link
-                            href="/checkout"
-                            className={`${
-                                isActive("/checkout")
-                                    ? "text-blue-600 font-bold"
-                                    : "text-gray-700 hover:text-blue-600 font-medium"
-                            } transition-colors duration-200 capitalize`}
-                        >
-                            Checkout
-                        </Link>
                     </div>
 
-                    <div className="flex items-center space-x-4">
-                        <Link href="/checkout" className="relative flex items-center">
-                            <ShoppingCartIcon className="w-6 h-6"/>
+                    <div className="flex items-center">
+                        <Link href="/checkout" className="relative flex items-center p-2">
+                            <ShoppingCartIcon className="w-5 h-5 text-gray-700" />
                             {cartCount > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
                                     {cartCount}
                                 </span>
                             )}
                         </Link>
+                        <Button variant="ghost" className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
+                            {mobileOpen ? (
+                                <XMarkIcon className="w-5 h-5 text-gray-700" />
+                            ) : (
+                                <Bars3Icon className="w-5 h-5 text-gray-700" />
+                            )}
+                        </Button>
                     </div>
-                    <Button variant="ghost" onClick={() => setMobileOpen(!mobileOpen)}>
-                        {mobileOpen ? (
-                            <XMarkIcon
-                                className="w-6 h-6 text-gray-700"/>) : (
-                            <Bars3Icon className="w-6 h-6 text-gray-700"/>)}
-                    </Button>
-
-                    {/* Mobile menu button - placeholder for future implementation */}
-                    {/* <div className="md:hidden">
-                        <button className="text-gray-700 hover:text-blue-600 focus:outline-none">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div> */}
                 </div>
             </div>
+            {mobileOpen && (
+                <nav className="md:hidden bg-white border-t border-gray-100">
+                    <ul className="flex flex-col p-6 space-y-4">
+                        <li>
+                            <Link href="/" className="block text-gray-600 hover:text-gray-900 font-light transition-colors duration-300">
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/products" className="block text-gray-600 hover:text-gray-900 font-light transition-colors duration-300">
+                                Products
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/checkout" className="block text-gray-600 hover:text-gray-900 font-light transition-colors duration-300">
+                                Cart
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+            )}
         </nav>
     );
 }
